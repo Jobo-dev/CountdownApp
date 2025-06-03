@@ -16,6 +16,7 @@ public class CountdownTimerAnimated : MonoBehaviour
     [SerializeField] internal TextMeshProUGUI minutesText;
     [SerializeField] internal TextMeshProUGUI secondsText;
     [SerializeField] internal string targetDateTime = "2025-06-10 12:00:00";
+    private string initialDate = "2025-06-01 12:00:00";
 
     private DateTime targetTime;
     private int lastDay, lastHour, lastMinute, lastSecond;
@@ -31,10 +32,17 @@ public class CountdownTimerAnimated : MonoBehaviour
 
     void CheckSavedInitialDateTime()
     {
+        DateTime initialDateTime = DateTime.Parse(initialDate);
+        string currentDate = initialDateTime.ToString();
+        
+        //string currentDate = DateTime.Now.ToString();
+
+        
+
         if (!PlayerPrefs.HasKey("InitDateTime"))
         {
-            PlayerPrefs.SetString("InitDateTime", DateTime.Now.ToString());
-            Debug.Log($"Saving init date time: {DateTime.Now.ToString()}");
+            PlayerPrefs.SetString("InitDateTime", currentDate);
+            Debug.Log($"Saving init date time: {currentDate}");
         }
         else
         {
