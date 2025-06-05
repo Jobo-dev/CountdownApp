@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountdownTimerAnimated : MonoBehaviour
+public class CountdownTimerAnimated : CountdownElement
 {
 
     [SerializeField] internal Transform radialTransform;
@@ -23,6 +23,7 @@ public class CountdownTimerAnimated : MonoBehaviour
 
     void Start()
     {
+        elementId = ElementId.AppScreen;
         targetTime = DateTime.Parse(targetDateTime);
         CheckSavedInitialDateTime();
         UpdateCountdown();
@@ -127,5 +128,16 @@ public class CountdownTimerAnimated : MonoBehaviour
             .OnComplete(() =>
                 tmp.transform.DOScale(1f, 0.2f)
             );
+    }
+
+
+    internal override void InitElement()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal override void HideElement()
+    {
+        throw new NotImplementedException();
     }
 }
