@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Jobodev_Logo_NoBG_0: -2602086761502533545
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
