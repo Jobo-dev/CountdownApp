@@ -10,7 +10,10 @@ public enum ElementId
 public abstract class CountdownElement : MonoBehaviour
 {
     internal CountdownAppMediator appMediator;
-    internal ElementId elementId = ElementId.None; 
+    internal ElementId elementId = ElementId.None;
+
+    internal DateTimeInfoSO dateInfo;
+    internal DateTimeInfoSO defaultDateInfo;
 
     internal void SetMediator(CountdownAppMediator mediator)
     {

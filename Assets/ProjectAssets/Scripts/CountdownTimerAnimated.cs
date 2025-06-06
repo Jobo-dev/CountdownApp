@@ -15,29 +15,22 @@ public class CountdownTimerAnimated : CountdownElement
     [SerializeField] internal TextMeshProUGUI hoursText;
     [SerializeField] internal TextMeshProUGUI minutesText;
     [SerializeField] internal TextMeshProUGUI secondsText;
-    [SerializeField] internal string targetDateTime = "2025-06-10 12:00:00";
+    internal string targetDateTime = "2025-06-10 12:00:00";
     private string initialDate = "2025-06-01 12:00:00";
 
     private DateTime targetTime;
     private int lastDay, lastHour, lastMinute, lastSecond;
 
-    void Start()
+    void Awake()
     {
         elementId = ElementId.AppScreen;
-        targetTime = DateTime.Parse(targetDateTime);
-        CheckSavedInitialDateTime();
-        UpdateCountdown();
-        InvokeRepeating(nameof(UpdateCountdown), 0f, 1f);
+        //targetTime = DateTime.Parse(targetDateTime);
     }
-
 
     void CheckSavedInitialDateTime()
     {
-        DateTime initialDateTime = DateTime.Parse(initialDate);
+        DateTime initialDateTime = dateInfo.initialDate;
         string currentDate = initialDateTime.ToString();
-        
-        //string currentDate = DateTime.Now.ToString();
-
         
 
         if (!PlayerPrefs.HasKey("InitDateTime"))
@@ -133,11 +126,16 @@ public class CountdownTimerAnimated : CountdownElement
 
     internal override void InitElement()
     {
-        throw new NotImplementedException();
+        CheckSavedInitialDateTime();
+        targetTime = dateInfo.targetDate;
+        UpdateCountdown();
+        InvokeRepeating(nameof(UpdateCountdown), 0f, 1f);
     }
 
     internal override void HideElement()
     {
-        throw new NotImplementedException();
+        CancelInvoke();
+        this.gameObject.SetActive(false);
+
     }
 }
