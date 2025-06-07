@@ -8,15 +8,18 @@ using UnityEngine.UI;
 
 public class CountdownTimerAnimated : CountdownElement
 {
+    [Header("Description text elements")]
+    [SerializeField] internal TextMeshProUGUI descriptionText;
 
+    [Header("Radial image elements")]
     [SerializeField] internal Transform radialTransform;
     [SerializeField] internal Image radialFillImage;
+
+    [Header("Digits elements")]
     [SerializeField] internal TextMeshProUGUI daysText;
     [SerializeField] internal TextMeshProUGUI hoursText;
     [SerializeField] internal TextMeshProUGUI minutesText;
     [SerializeField] internal TextMeshProUGUI secondsText;
-    internal string targetDateTime = "2025-06-10 12:00:00";
-    private string initialDate = "2025-06-01 12:00:00";
 
     private DateTime targetTime;
     private int lastDay, lastHour, lastMinute, lastSecond;
@@ -24,7 +27,6 @@ public class CountdownTimerAnimated : CountdownElement
     void Awake()
     {
         elementId = ElementId.AppScreen;
-        //targetTime = DateTime.Parse(targetDateTime);
     }
 
     void CheckSavedInitialDateTime()
@@ -127,6 +129,7 @@ public class CountdownTimerAnimated : CountdownElement
     internal override void InitElement()
     {
         CheckSavedInitialDateTime();
+        descriptionText.text = dateInfo.description;
         targetTime = dateInfo.targetDate;
         UpdateCountdown();
         InvokeRepeating(nameof(UpdateCountdown), 0f, 1f);
