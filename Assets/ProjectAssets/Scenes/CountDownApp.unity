@@ -1348,7 +1348,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 765641054780622162, guid: 726c34b8431c139469a2990cdb61edd9, type: 3}
       propertyPath: m_text
-      value: Examen final
+      value: Cuenta regresiva
       objectReference: {fileID: 0}
     - target: {fileID: 765641054780622162, guid: 726c34b8431c139469a2990cdb61edd9, type: 3}
       propertyPath: m_Enabled

@@ -65,27 +65,22 @@ public class CountdownTimerAnimated : CountdownElement
         int remainingMinutes = remaining.Minutes;
         int remainingSeconds = remaining.Seconds;
 
-        if (remainingDays != lastDay)
-        {
-            AnimateText(daysText, remainingDays);
-            lastDay = remainingDays;
-        }
-        if (remainingHours != lastHour)
-        {
-            AnimateText(hoursText, remainingHours);
-            lastHour = remainingHours;
-        }
-        if (remainingMinutes != lastMinute)
-        {
-            AnimateText(minutesText, remainingMinutes);
-            lastMinute = remainingMinutes;
-        }
-        if (remainingSeconds != lastSecond)
-        {
-            AnimateText(secondsText, remainingSeconds);
-            lastSecond = remainingSeconds;
-        }
+
+        CompareTimeElements(remainingDays, daysText, ref lastDay);
+        CompareTimeElements(remainingHours, hoursText, ref lastHour);
+        CompareTimeElements(remainingMinutes, minutesText, ref lastMinute);
+        CompareTimeElements(remainingSeconds, secondsText, ref lastSecond);
+
         AnimateRadial(remaining);
+    }
+
+    void CompareTimeElements(int remainingElement, TextMeshProUGUI textElement, ref int lastElement)
+    {
+        if (remainingElement != lastElement)
+        {
+            AnimateText(textElement, remainingElement);
+            lastElement = remainingElement;
+        }
     }
 
     void AnimateRadial(TimeSpan remaining)
@@ -139,6 +134,5 @@ public class CountdownTimerAnimated : CountdownElement
     {
         CancelInvoke();
         this.gameObject.SetActive(false);
-
     }
 }
