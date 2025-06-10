@@ -20,9 +20,8 @@ public class DateTimeInfoSO : ScriptableObject
         {
             if (DateTime.TryParse(targetDateString, out targetDate))
             {
-                dateString = targetDateString;
-                DateTime initialDateTime = targetDate;
-                Debug.Log($"TargetDateString: {initialDateTime.ToString()}");
+                dateString = targetDate.ToString();
+                Debug.Log($"TargetDateString: {dateString}");
                 return true;
             }
             else
@@ -36,4 +35,16 @@ public class DateTimeInfoSO : ScriptableObject
             return false;
         }
     }
+    internal void SetTargetDateString()
+    {
+        if (DateTime.TryParse(dateString, out targetDate))
+        {
+            DateTime initialDateTime = targetDate;
+        }
+    }
+    internal void SetDescription(string pDescription)
+    {
+        description = pDescription;
+    }
+
 }

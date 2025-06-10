@@ -1,13 +1,15 @@
 using DG.Tweening;
 using System;
 using System.CodeDom.Compiler;
-using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CountdownTimerAnimated : CountdownElement
 {
+    [Header("Generate new countdown button")]
+    [SerializeField] internal Button generateCountdownButton;
+
     [Header("Description text elements")]
     [SerializeField] internal TextMeshProUGUI descriptionText;
 
@@ -27,6 +29,7 @@ public class CountdownTimerAnimated : CountdownElement
     void Awake()
     {
         elementId = ElementId.AppScreen;
+        generateCountdownButton.onClick.AddListener(GenerateNewCountdownButton);
     }
 
     void CheckSavedInitialDateTime()
@@ -83,6 +86,7 @@ public class CountdownTimerAnimated : CountdownElement
         }
     }
 
+    #region Countdown Update Methods
     void AnimateRadial(TimeSpan remaining)
     {
         DateTime initialDate = DateTime.Parse(PlayerPrefs.GetString("InitDateTime"));
@@ -119,7 +123,12 @@ public class CountdownTimerAnimated : CountdownElement
                 tmp.transform.DOScale(1f, 0.2f)
             );
     }
+    #endregion
 
+    internal void GenerateNewCountdownButton()
+    {
+        appMediator.InitSettingsFromCountdown();
+    }
 
     internal override void InitElement()
     {

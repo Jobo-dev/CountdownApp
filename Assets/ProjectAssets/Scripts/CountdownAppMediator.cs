@@ -39,4 +39,12 @@ public class CountdownAppMediator : MonoBehaviour
         countdownElementsDictionary[ElementId.SettingsScreen].HideElement();
     }
 
+    internal void InitSettingsFromCountdown()
+    {
+        CountdownSettings settings = countdownElementsDictionary[ElementId.SettingsScreen] as CountdownSettings;
+
+        settings.gameObject.SetActive(true);
+        settings.NeedsCloseButton(true);
+    }
+
 }
