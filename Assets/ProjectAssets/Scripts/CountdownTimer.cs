@@ -1,11 +1,10 @@
 using DG.Tweening;
 using System;
-using System.CodeDom.Compiler;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountdownTimerAnimated : CountdownElement
+public class CountdownTimer : CountdownElement
 {
     [Header("Generate new countdown button")]
     [SerializeField] internal Button generateCountdownButton;
@@ -34,21 +33,18 @@ public class CountdownTimerAnimated : CountdownElement
 
     void CheckSavedInitialDateTime()
     {
-        DateTime initialDateTime = dateInfo.initialDate;
-        string currentDate = initialDateTime.ToString();
-        
-
-        if (!PlayerPrefs.HasKey("InitDateTime"))
+        if (!PlayerPrefs.HasKey("CountDownSet"))
         {
-            PlayerPrefs.SetString("InitDateTime", currentDate);
-            Debug.Log($"Saving init date time: {currentDate}");
+            PlayerPrefs.SetInt("CountDownSet", 1);
+            Debug.Log($"Saving date info");
         }
         else
         {
-            Debug.Log($"Init date time already saved!  {PlayerPrefs.GetString("InitDateTime")}");
+            Debug.Log($"Init date time already saved!  {PlayerPrefs.GetString("CountDownSet")}");
         }
     }
-
+    
+    #region Time Validation
     void UpdateCountdown()
     {
         TimeSpan remaining = targetTime - DateTime.Now;
@@ -59,7 +55,10 @@ public class CountdownTimerAnimated : CountdownElement
             hoursText.text = "00";
             minutesText.text = "00";
             secondsText.text = "00";
+            radialTransform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+            radialFillImage.fillAmount = 0;
             CancelInvoke(nameof(UpdateCountdown));
+            PlayerPrefs.DeleteAll();
             return;
         }
 
@@ -85,11 +84,12 @@ public class CountdownTimerAnimated : CountdownElement
             lastElement = remainingElement;
         }
     }
+    #endregion
 
     #region Countdown Update Methods
     void AnimateRadial(TimeSpan remaining)
     {
-        DateTime initialDate = DateTime.Parse(PlayerPrefs.GetString("InitDateTime"));
+        DateTime initialDate = dateInfo.initialDate;
 
         TimeSpan currentDifference = DateTime.Now - initialDate;
         TimeSpan totalDifference = targetTime - initialDate;
@@ -125,15 +125,26 @@ public class CountdownTimerAnimated : CountdownElement
     }
     #endregion
 
+    #region Buttons Methods
     internal void GenerateNewCountdownButton()
     {
         appMediator.InitSettingsFromCountdown();
     }
+    #endregion
+
+    #region Mediator access methods
 
     internal override void InitElement()
     {
+        ActivateScreenWithTransition();
+
+        DateTime initialDateTime = dateInfo.initialDate;
+        string currentDate = initialDateTime.ToString();
+
         CheckSavedInitialDateTime();
+        
         descriptionText.text = dateInfo.description;
+        
         targetTime = dateInfo.targetDate;
         UpdateCountdown();
         InvokeRepeating(nameof(UpdateCountdown), 0f, 1f);
@@ -142,6 +153,7 @@ public class CountdownTimerAnimated : CountdownElement
     internal override void HideElement()
     {
         CancelInvoke();
-        this.gameObject.SetActive(false);
+        HideScreenWithTransition();
     }
+    #endregion
 }

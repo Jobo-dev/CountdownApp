@@ -271,6 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400436025935812425}
   - component: {fileID: 4329420587801454004}
+  - component: {fileID: 8366110621175093531}
   m_Layer: 5
   m_Name: CountdownScreen
   m_TagString: Untagged
@@ -319,6 +320,18 @@ MonoBehaviour:
   hoursText: {fileID: 7228421068722137055}
   minutesText: {fileID: 7519315688344742741}
   secondsText: {fileID: 3020208498951299403}
+--- !u!225 &8366110621175093531
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185698628478935536}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4475200485065268873
 GameObject:
   m_ObjectHideFlags: 0

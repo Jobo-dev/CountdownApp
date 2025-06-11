@@ -85,10 +85,10 @@ public class CountdownSettings : CountdownElement
 
     internal override void InitElement()
     {
-        throw new System.NotImplementedException();
+        ActivateScreenWithTransition();
     }
     internal override void HideElement()
     {
-        this.gameObject.SetActive( false );
+        HideScreenWithTransition();
     }
 }
