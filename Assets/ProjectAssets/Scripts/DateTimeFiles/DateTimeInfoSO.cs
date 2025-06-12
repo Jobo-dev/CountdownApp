@@ -5,8 +5,9 @@ using UnityEngine;
 public class DateTimeInfoSO : ScriptableObject
 {
     public string dateString = "2025-06-10 12:00:00";
-    public DateTime targetDate;
-    public DateTime initialDate;
+    public string initialDateString = "2025-01-01 12:00:00";
+    private DateTime targetDate;
+    private DateTime initialDate;
     public string description = "";
 
     public void Init()
@@ -21,7 +22,9 @@ public class DateTimeInfoSO : ScriptableObject
             if (DateTime.TryParse(targetDateString, out targetDate))
             {
                 dateString = targetDate.ToString();
+                initialDateString = initialDate.ToString();
                 Debug.Log($"TargetDateString: {dateString}");
+                Debug.Log($"initialDateString: {initialDateString}");
                 return true;
             }
             else

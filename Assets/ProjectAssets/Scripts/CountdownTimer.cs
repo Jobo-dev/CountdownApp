@@ -89,7 +89,7 @@ public class CountdownTimer : CountdownElement
     #region Countdown Update Methods
     void AnimateRadial(TimeSpan remaining)
     {
-        DateTime initialDate = dateInfo.initialDate;
+        DateTime initialDate = DateTime.Parse(dateInfo.initialDateString);
 
         TimeSpan currentDifference = DateTime.Now - initialDate;
         TimeSpan totalDifference = targetTime - initialDate;
@@ -138,14 +138,14 @@ public class CountdownTimer : CountdownElement
     {
         ActivateScreenWithTransition();
 
-        DateTime initialDateTime = dateInfo.initialDate;
+        DateTime initialDateTime = DateTime.Parse(dateInfo.initialDateString);
         string currentDate = initialDateTime.ToString();
 
         CheckSavedInitialDateTime();
         
         descriptionText.text = dateInfo.description;
         
-        targetTime = dateInfo.targetDate;
+        targetTime = DateTime.Parse(dateInfo.dateString);
         UpdateCountdown();
         InvokeRepeating(nameof(UpdateCountdown), 0f, 1f);
     }
