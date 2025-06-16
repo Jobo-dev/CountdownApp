@@ -97,5 +97,13 @@ public class CountdownAppMediator : MonoBehaviour
         countdownTimer.HideScreenWithTransition();
         settings.NeedsCloseButton(true);
     }
+
+    internal void ReturnToCountdown()
+    {
+        CountdownSettings settings = countdownElementsDictionary[ElementId.SettingsScreen] as CountdownSettings;
+        CountdownTimer countdownTimer = countdownElementsDictionary[ElementId.AppScreen] as CountdownTimer;
+        countdownTimer.ActivateScreenWithTransition();
+        settings.HideScreenWithTransition();
+    }
     #endregion
 }

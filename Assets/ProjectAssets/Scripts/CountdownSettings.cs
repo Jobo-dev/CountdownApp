@@ -33,7 +33,7 @@ public class CountdownSettings : CountdownElement
         startButton.onClick.AddListener(ValidateSettings);
         closeButton.onClick.AddListener(() =>
         {
-            this.gameObject.SetActive(false);
+            appMediator.ReturnToCountdown();
         });
         closeButton.gameObject.SetActive(false);
     }
