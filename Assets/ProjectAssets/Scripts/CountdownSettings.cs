@@ -1,20 +1,30 @@
 using System.Collections.Generic;
-using System.Text;
 using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using DG.Tweening;
 
 public class CountdownSettings : CountdownElement
 {
-    
+    [Header("Dropdown elements")]
     [SerializeField] List<TMP_Dropdown> targetDropDownList;
     [SerializeField] List<TMP_Dropdown> targetHourDropDownList;
     //[SerializeField] List<TMP_Dropdown> initialDropDownList;
 
 
+    [Header ("Description field elements")]
     [SerializeField] TMP_InputField descriptionIF;
+
+    [Header("Buttons elements")]
     [SerializeField] Button startButton;
     [SerializeField] Button closeButton;
+
+    [Header("Alert text elements")]
+    [SerializeField] TextMeshProUGUI dateAlertText;
+    [SerializeField] TextMeshProUGUI timeAlertText;
+    [SerializeField] TextMeshProUGUI descriptionAlertText;
 
     private void Awake()
     {
@@ -66,6 +76,7 @@ public class CountdownSettings : CountdownElement
         else
         {
             Debug.LogWarning($"{GetType()} Warning. The input field is empty, please fill it");
+            StartCoroutine(ShowTextAlert(descriptionAlertText));
             return false;
         }
     }
@@ -115,17 +126,44 @@ public class CountdownSettings : CountdownElement
 
     string SetDateTimeAsString(bool setMidnight)
     {
-        string hour = "";
         
+        
+        string date = BuildDateTimeString("-", targetDropDownList);
+
+        if (!DateTime.TryParse(date, out DateTime resultDate))
+        {
+            StartCoroutine(ShowTextAlert(timeAlertText));
+            throw new Exception("The date does not have the correct format");
+        }
+
+        string hour = "";
         if (setMidnight)
             hour = "00:00:00";
         else
-            hour = BuildDateTimeString(":", targetHourDropDownList);        
+            hour = BuildDateTimeString(":", targetHourDropDownList);
+
+        if (!DateTime.TryParse(hour, out DateTime resultTime))
+        {
+            StartCoroutine(ShowTextAlert(timeAlertText));
+            throw new Exception("The time does not have the correct format");
+        }
         
-        string date = BuildDateTimeString("-", targetDropDownList);
-        
+
         string[] dateTime = { date, hour };
         return string.Join(" ", dateTime);
+    }
+
+
+    IEnumerator ShowTextAlert(TextMeshProUGUI textElement)
+    {
+        textElement.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5);
+        textElement.DOFade(0, 1).OnComplete(() =>
+        {
+            textElement.gameObject.SetActive(false);
+            textElement.DOFade(1, 0);
+        } 
+        );
     }
 
     internal override void InitElement()
