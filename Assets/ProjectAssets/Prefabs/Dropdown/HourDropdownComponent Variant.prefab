@@ -96,6 +96,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3359542211964239975, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
+      propertyPath: m_text
+      value: Seconds
+      objectReference: {fileID: 0}
+    - target: {fileID: 3409601024916257457, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: Minutes
+      objectReference: {fileID: 0}
     - target: {fileID: 3730479839817124677, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -115,6 +123,10 @@ PrefabInstance:
     - target: {fileID: 3730479839817124677, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455036217960623771, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: Hours
       objectReference: {fileID: 0}
     - target: {fileID: 4958303463996774431, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
       propertyPath: m_AnchorMax.y
@@ -252,6 +264,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7208553912060898552, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
+      propertyPath: m_text
+      value: Minutes
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334048571728827950, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: Seconds
+      objectReference: {fileID: 0}
     - target: {fileID: 7726903664611979860, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -323,6 +343,10 @@ PrefabInstance:
     - target: {fileID: 8497830806618051010, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8542145763052779730, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
+      propertyPath: m_text
+      value: Hours
       objectReference: {fileID: 0}
     - target: {fileID: 8771138741254645374, guid: e15bcb466b5505442b18c8b1d2ebee60, type: 3}
       propertyPath: m_AnchorMax.y
