@@ -96,6 +96,7 @@ public class CountdownAppMediator : MonoBehaviour
         settings.ActivateScreenWithTransition();
         countdownTimer.HideScreenWithTransition();
         settings.NeedsCloseButton(true);
+        settings.SetRecalculateInitialDate();
     }
 
     internal void ReturnToCountdown()

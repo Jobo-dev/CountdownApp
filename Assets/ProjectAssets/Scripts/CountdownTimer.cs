@@ -94,20 +94,20 @@ public class CountdownTimer : CountdownElement
         TimeSpan currentDifference = DateTime.Now - initialDate;
         TimeSpan totalDifference = targetTime - initialDate;
 
-        float remainingDegrees = (float) (((currentDifference.TotalSeconds - totalDifference.Seconds) * 360) / totalDifference.TotalSeconds);
-        float remainingRadial = (float) ((currentDifference.TotalSeconds - totalDifference.Seconds) / totalDifference.TotalSeconds);
+        float remainingDegrees = (float) (((currentDifference.TotalSeconds - totalDifference.TotalSeconds) * 360) / totalDifference.TotalSeconds);
+        float remainingRadial = (float) ((totalDifference.TotalSeconds - currentDifference.TotalSeconds) / totalDifference.TotalSeconds);
 
         // Avoid negative numbers
         if (remaining.TotalSeconds < 0)
         {
             radialTransform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-            radialFillImage.fillAmount = remainingRadial;
+            radialFillImage.fillAmount = 0;
             return;
         }
         else
         {
             radialTransform.localRotation = Quaternion.Euler(0f, 0f, remainingDegrees);
-            radialFillImage.fillAmount = 1 - remainingRadial;
+            radialFillImage.fillAmount = remainingRadial;
         }
     }
 
@@ -142,7 +142,7 @@ public class CountdownTimer : CountdownElement
         string currentDate = initialDateTime.ToString();
 
         CheckSavedInitialDateTime();
-        
+
         descriptionText.text = dateInfo.description;
         
         targetTime = DateTime.Parse(dateInfo.dateString);

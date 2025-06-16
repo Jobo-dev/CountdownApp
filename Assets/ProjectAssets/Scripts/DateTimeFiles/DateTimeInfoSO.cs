@@ -12,7 +12,7 @@ public class DateTimeInfoSO : ScriptableObject
 
     public void Init()
     {
-        initialDate = DateTime.Now;
+        SetInitialDate();
     }
 
     internal bool ValidateTargetFormat(string targetDateString)
@@ -48,6 +48,11 @@ public class DateTimeInfoSO : ScriptableObject
     internal void SetDescription(string pDescription)
     {
         description = pDescription;
+    }
+
+    internal void SetInitialDate()
+    {
+        initialDate = DateTime.Now;
     }
 
 }

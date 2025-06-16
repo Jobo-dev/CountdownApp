@@ -26,6 +26,9 @@ public class CountdownSettings : CountdownElement
     [SerializeField] TextMeshProUGUI timeAlertText;
     [SerializeField] TextMeshProUGUI descriptionAlertText;
 
+
+    bool recalculateInitialDate = false;
+
     private void Awake()
     {
         if (targetDropDownList.Count == 0)
@@ -59,6 +62,11 @@ public class CountdownSettings : CountdownElement
         {
             return;
         }
+
+        if (recalculateInitialDate)
+            dateInfo.SetInitialDate();
+        else
+            recalculateInitialDate = true;
 
         dateInfo.SetDescription(descriptionIF.text);
         dateInfo.SetTargetDateString();
@@ -164,6 +172,11 @@ public class CountdownSettings : CountdownElement
             textElement.DOFade(1, 0);
         } 
         );
+    }
+
+    internal void SetRecalculateInitialDate()
+    {
+        recalculateInitialDate = true;
     }
 
     internal override void InitElement()
