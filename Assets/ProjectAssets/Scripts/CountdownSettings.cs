@@ -26,7 +26,7 @@ public class CountdownSettings : CountdownElement
     [SerializeField] TextMeshProUGUI timeAlertText;
     [SerializeField] TextMeshProUGUI descriptionAlertText;
 
-
+    JsonFileReaderUtility jsonFileReader;
     bool recalculateInitialDate = false;
 
     private void Awake()
@@ -41,6 +41,8 @@ public class CountdownSettings : CountdownElement
             Debug.LogWarning($"{GetType()} Warning. The target hour dropdown list is empty, please assign the corresponding elements");
             return;
         }
+
+        jsonFileReader = new JsonFileReaderUtility();
 
         elementId = ElementId.SettingsScreen;
         startButton.onClick.AddListener(ValidateSettings);
@@ -70,6 +72,9 @@ public class CountdownSettings : CountdownElement
 
         dateInfo.SetDescription(descriptionIF.text);
         dateInfo.SetTargetDateString();
+
+        jsonFileReader.SaveInfoToFile(dateInfo);
+        
         appMediator.InitCountDown();
     }
 
@@ -134,8 +139,6 @@ public class CountdownSettings : CountdownElement
 
     string SetDateTimeAsString(bool setMidnight)
     {
-        
-        
         string date = BuildDateTimeString("-", targetDropDownList);
 
         if (!DateTime.TryParse(date, out DateTime resultDate))
@@ -156,7 +159,6 @@ public class CountdownSettings : CountdownElement
             throw new Exception("The time does not have the correct format");
         }
         
-
         string[] dateTime = { date, hour };
         return string.Join(" ", dateTime);
     }
@@ -170,8 +172,7 @@ public class CountdownSettings : CountdownElement
         {
             textElement.gameObject.SetActive(false);
             textElement.DOFade(1, 0);
-        } 
-        );
+        });
     }
 
     internal void SetRecalculateInitialDate()
