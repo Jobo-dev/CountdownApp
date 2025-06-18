@@ -22,12 +22,14 @@ public class CountdownTimer : CountdownElement
     [SerializeField] internal TextMeshProUGUI minutesText;
     [SerializeField] internal TextMeshProUGUI secondsText;
 
-    private DateTime targetTime;
-    private int lastDay, lastHour, lastMinute, lastSecond;
+    DateTime targetTime, initialTime;
+    int lastDay, lastHour, lastMinute, lastSecond;
+    JsonFileReaderUtility jsonFileReader;
 
     void Awake()
     {
         elementId = ElementId.AppScreen;
+        jsonFileReader = new JsonFileReaderUtility();
         generateCountdownButton.onClick.AddListener(GenerateNewCountdownButton);
     }
 
@@ -89,10 +91,9 @@ public class CountdownTimer : CountdownElement
     #region Countdown Update Methods
     void AnimateRadial(TimeSpan remaining)
     {
-        DateTime initialDate = DateTime.Parse(dateInfo.initialDateString);
 
-        TimeSpan currentDifference = DateTime.Now - initialDate;
-        TimeSpan totalDifference = targetTime - initialDate;
+        TimeSpan currentDifference = DateTime.Now - initialTime;
+        TimeSpan totalDifference = targetTime - initialTime;
 
         float remainingDegrees = (float) (((currentDifference.TotalSeconds - totalDifference.TotalSeconds) * 360) / totalDifference.TotalSeconds);
         float remainingRadial = (float) ((totalDifference.TotalSeconds - currentDifference.TotalSeconds) / totalDifference.TotalSeconds);
@@ -138,14 +139,12 @@ public class CountdownTimer : CountdownElement
     {
         ActivateScreenWithTransition();
 
-        DateTime initialDateTime = DateTime.Parse(dateInfo.initialDateString);
-        string currentDate = initialDateTime.ToString();
+        targetTime = DateTime.Parse(jsonFileReader.LoadDataFromJson(DateDataType.TargetDate));
+        initialTime = DateTime.Parse(jsonFileReader.LoadDataFromJson(DateDataType.InitialDate));
+        descriptionText.text = jsonFileReader.LoadDataFromJson(DateDataType.Description);
 
         CheckSavedInitialDateTime();
 
-        descriptionText.text = dateInfo.description;
-        
-        targetTime = DateTime.Parse(dateInfo.dateString);
         UpdateCountdown();
         InvokeRepeating(nameof(UpdateCountdown), 0f, 1f);
     }
