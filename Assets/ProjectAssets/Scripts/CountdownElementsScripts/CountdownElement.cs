@@ -11,13 +11,12 @@ public enum ElementId
 [RequireComponent(typeof(CanvasGroup))]
 public abstract class CountdownElement : MonoBehaviour
 {
-    internal CountdownAppMediator appMediator;
-    internal ElementId elementId = ElementId.None;
+    protected CanvasGroup elementCanvasGroup;
+    protected CountdownAppMediator appMediator;
 
+    internal ElementId elementId = ElementId.None;
     internal DateTimeInfoSO dateInfo;
     internal DateTimeInfoSO defaultDateInfo;
-
-    internal CanvasGroup elementCanvasGroup;
     
     internal void InitElementComponents(CountdownAppMediator mediator, DateTimeInfoSO targetInfo, DateTimeInfoSO defaultInfo)
     {

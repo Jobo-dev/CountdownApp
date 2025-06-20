@@ -17,7 +17,7 @@ public class DateTimeInfoSO : ScriptableObject
 
     internal bool ValidateTargetFormat(string targetDateString)
     {
-        if(targetDateString != null || targetDateString != "")
+        if (!string.IsNullOrEmpty(targetDateString))
         {
             if (DateTime.TryParse(targetDateString, out targetDate))
             {
@@ -36,13 +36,6 @@ public class DateTimeInfoSO : ScriptableObject
         {
             Debug.LogWarning($"{GetType()} Warning. The date string is null or empty");
             return false;
-        }
-    }
-    internal void SetTargetDateString()
-    {
-        if (DateTime.TryParse(dateString, out targetDate))
-        {
-            DateTime initialDateTime = targetDate;
         }
     }
     internal void SetDescription(string pDescription)

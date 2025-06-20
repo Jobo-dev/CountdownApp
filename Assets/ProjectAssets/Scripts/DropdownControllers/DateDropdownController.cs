@@ -10,8 +10,7 @@ public class DateDropdownController : MonoBehaviour
     public TMP_Dropdown dayDropdown;
 
     private int currentYear = DateTime.Now.Year;
-    private int minYear = 1900;
-    private int maxYear = 2100;
+    private int minYear, maxYear, maxYearOffset = 100;
 
     bool updateDay = false;
 
@@ -29,7 +28,7 @@ public class DateDropdownController : MonoBehaviour
     void PopulateYearDropdown()
     {
         minYear = currentYear;
-        maxYear = currentYear + 100;
+        maxYear = currentYear + maxYearOffset;
         yearDropdown.ClearOptions();
         List<string> years = new List<string>();
 

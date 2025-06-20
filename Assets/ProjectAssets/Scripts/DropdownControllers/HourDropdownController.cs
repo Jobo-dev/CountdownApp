@@ -5,47 +5,32 @@ using UnityEngine;
 
 public class HourDropdownController : MonoBehaviour
 {
+    [Header("Dropdowns")]
     public TMP_Dropdown hoursDropdown;
     public TMP_Dropdown minutesDropdown;
     public TMP_Dropdown secondsDropdown;
 
-    private Time currentTime;
-
     void Start()
     {
-        PopulateHoursAndMinutesDropdown(minutesDropdown, true);
-        PopulateHoursAndMinutesDropdown(secondsDropdown, false);
-        PopulatehoursDropdown();
+        if (hoursDropdown == null || minutesDropdown == null || secondsDropdown == null)
+        {
+            Debug.LogError("HourDropdownController: Some dropdowns are not assigned.");
+            return;
+        }
+        PopulateDropdown(hoursDropdown, 23, DateTime.Now.Hour);
+        PopulateDropdown(minutesDropdown, 59, DateTime.Now.Minute);
+        PopulateDropdown(secondsDropdown, 59, 0);
     }
 
-    void PopulateHoursAndMinutesDropdown(TMP_Dropdown dropdown, bool isMinutes)
+    void PopulateDropdown(TMP_Dropdown dropdown, int maxValue, int defaultValue = 0)
     {
         dropdown.ClearOptions();
-        List<string> years = new List<string>();
+        List<string> values = new List<string>();
 
-        for (int year = 0; year <= 59; year++)
-        {
-            years.Add(year.ToString("D2"));
-        }
+        for (int i = 0; i <= maxValue; i++)
+            values.Add(i.ToString("D2"));
 
-        dropdown.AddOptions(years);
-        if(isMinutes)
-            dropdown.value = DateTime.Now.Minute;
-        else
-            dropdown.value = 0;
-    }
-
-    void PopulatehoursDropdown()
-    {
-        hoursDropdown.ClearOptions();
-        List<string> hours = new List<string>();
-
-        for (int month = 0; month <= 23; month++)
-        {
-            hours.Add(month.ToString("D2"));
-        }
-
-        hoursDropdown.AddOptions(hours);
-        hoursDropdown.value = DateTime.Now.Hour;
+        dropdown.AddOptions(values);
+        dropdown.value = Mathf.Clamp(defaultValue, 0, maxValue);
     }
 }

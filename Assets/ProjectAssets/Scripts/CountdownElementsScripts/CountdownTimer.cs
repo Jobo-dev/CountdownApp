@@ -25,6 +25,7 @@ public class CountdownTimer : CountdownElement
     DateTime targetTime, initialTime;
     int lastDay, lastHour, lastMinute, lastSecond;
     JsonFileReaderUtility jsonFileReader;
+    string dataIdKey = "CountDownSet";
 
     void Awake()
     {
@@ -35,14 +36,14 @@ public class CountdownTimer : CountdownElement
 
     void CheckSavedInitialDateTime()
     {
-        if (!PlayerPrefs.HasKey("CountDownSet"))
+        if (!PlayerPrefs.HasKey(dataIdKey))
         {
-            PlayerPrefs.SetInt("CountDownSet", 1);
+            PlayerPrefs.SetInt(dataIdKey, 1);
             Debug.Log($"Saving date info");
         }
         else
         {
-            Debug.Log($"Init date time already saved!  {PlayerPrefs.GetString("CountDownSet")}");
+            Debug.Log($"Init date time already saved!  {PlayerPrefs.GetString(dataIdKey)}");
         }
     }
     
@@ -53,14 +54,9 @@ public class CountdownTimer : CountdownElement
 
         if (remaining.TotalSeconds <= 0)
         {
-            daysText.text = "00";
-            hoursText.text = "00";
-            minutesText.text = "00";
-            secondsText.text = "00";
-            radialTransform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-            radialFillImage.fillAmount = 0;
+            ResetCountdownUI();
             CancelInvoke(nameof(UpdateCountdown));
-            PlayerPrefs.DeleteAll();
+            PlayerPrefs.DeleteKey(dataIdKey);
             return;
         }
 
@@ -76,6 +72,16 @@ public class CountdownTimer : CountdownElement
         CompareTimeElements(remainingSeconds, secondsText, ref lastSecond);
 
         AnimateRadial(remaining);
+    }
+
+    void ResetCountdownUI()
+    {
+        daysText.text = "00";
+        hoursText.text = "00";
+        minutesText.text = "00";
+        secondsText.text = "00";
+        radialTransform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        radialFillImage.fillAmount = 0;
     }
 
     void CompareTimeElements(int remainingElement, TextMeshProUGUI textElement, ref int lastElement)

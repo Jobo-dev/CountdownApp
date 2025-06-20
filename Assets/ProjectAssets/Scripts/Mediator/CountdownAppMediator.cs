@@ -7,7 +7,10 @@ public class CountdownAppMediator : MonoBehaviour
     [SerializeField] internal DateTimeInfoSO defaultDateInfo;
 
     [SerializeField] private List<CountdownElement> appMainElementsList;
-    [SerializeField] private Dictionary<ElementId, CountdownElement> countdownElementsDictionary;
+    private Dictionary<ElementId, CountdownElement> countdownElementsDictionary;
+    private CountdownSettings settings;
+    private CountdownTimer timer;
+    private string countdownKey = "CountDownSet";
 
     private void Start()
     {
@@ -32,10 +35,12 @@ public class CountdownAppMediator : MonoBehaviour
             //the dictionary for an easier search.
             foreach (var element in appMainElementsList)
             {
-                AssignElementToDictionary(element);
+                RegisterElement(element);
+                InitElement(element);
                 Debug.Log($"{GetType()} Log. Add dictionary registry: {element.elementId}, {element}");
             }
-
+            settings = countdownElementsDictionary[ElementId.SettingsScreen] as CountdownSettings;
+            timer = countdownElementsDictionary[ElementId.AppScreen] as CountdownTimer;
             CheckIfAppHasSavedCountdown();
         }
         else
@@ -44,18 +49,21 @@ public class CountdownAppMediator : MonoBehaviour
         }
     }
 
-    void AssignElementToDictionary(CountdownElement element)
+    void RegisterElement(CountdownElement element)
     {
-        if (countdownElementsDictionary != null &&
-            !countdownElementsDictionary.ContainsKey(element.elementId))
+        if (!countdownElementsDictionary.ContainsKey(element.elementId))
         {
-            countdownElementsDictionary.Add(element.elementId, element);
-            element.InitElementComponents(this, dateInfo, defaultDateInfo);
+            countdownElementsDictionary[element.elementId] = element;
+            Debug.Log($"{GetType()} Log. Registered: {element.elementId}");
         }
         else
         {
-            Debug.LogWarning($"{GetType()} Warning. The key {element.elementId.ToString()} is already saved! Please check the {element.GetType()} element id");
+            Debug.LogWarning($"Duplicate element ID: {element.elementId}");
         }
+    }
+    void InitElement(CountdownElement element)
+    {
+        element.InitElementComponents(this, dateInfo, defaultDateInfo);
     }
 
     void SetInitScreen(ElementId id)
@@ -66,7 +74,7 @@ public class CountdownAppMediator : MonoBehaviour
 
     void CheckIfAppHasSavedCountdown()
     {
-        if (!PlayerPrefs.HasKey("CountDownSet"))
+        if (!PlayerPrefs.HasKey(countdownKey))
         {
             //App doesn't has info saved   
             SetInitScreen(ElementId.SettingsScreen);
@@ -75,7 +83,7 @@ public class CountdownAppMediator : MonoBehaviour
         {
             //App has info saved
             SetInitScreen(ElementId.AppScreen);
-            countdownElementsDictionary[ElementId.AppScreen].InitElement();
+            timer.InitElement();
             Debug.Log($"{GetType()} Log. Init date time already saved!");
         }
     }
@@ -84,26 +92,23 @@ public class CountdownAppMediator : MonoBehaviour
     #region Logic methods
     internal void InitCountDown()
     {
-        countdownElementsDictionary[ElementId.AppScreen].InitElement();
-        countdownElementsDictionary[ElementId.SettingsScreen].HideElement();
+        timer.InitElement();
+        settings.HideElement();
     }
 
     internal void InitSettingsFromCountdown()
     {
-        CountdownSettings settings = countdownElementsDictionary[ElementId.SettingsScreen] as CountdownSettings;
-        CountdownTimer countdownTimer = countdownElementsDictionary[ElementId.AppScreen] as CountdownTimer;
+        
 
         settings.ActivateScreenWithTransition();
-        countdownTimer.HideScreenWithTransition();
+        timer.HideScreenWithTransition();
         settings.NeedsCloseButton(true);
         settings.SetRecalculateInitialDate();
     }
 
     internal void ReturnToCountdown()
     {
-        CountdownSettings settings = countdownElementsDictionary[ElementId.SettingsScreen] as CountdownSettings;
-        CountdownTimer countdownTimer = countdownElementsDictionary[ElementId.AppScreen] as CountdownTimer;
-        countdownTimer.ActivateScreenWithTransition();
+        timer.ActivateScreenWithTransition();
         settings.HideScreenWithTransition();
     }
     #endregion

@@ -17,7 +17,7 @@ public class DateTimeData
 }
 public class JsonFileReaderUtility
 {
-    string fileName = "dateInfo.json";
+    const string FileName = "dateInfo.json";
 
     public void SaveInfoToFile(DateTimeInfoSO dateTimeInfo)
     {
@@ -29,43 +29,31 @@ public class JsonFileReaderUtility
         };
 
         string json = JsonUtility.ToJson(data);
-        string path = Path.Combine(Application.persistentDataPath, fileName);
+        string path = Path.Combine(Application.persistentDataPath, FileName);
 
         File.WriteAllText(path, json);
-        Debug.Log($"{GetType()} Log. The file {fileName} was saved with the next info: {json}");
+        Debug.Log($"{GetType()} Log. The file {FileName} was saved with the next info: {json}");
     }
 
     public string LoadDataFromJson(DateDataType dataType)
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
-        string targetDataText;
+        string path = Path.Combine(Application.persistentDataPath, FileName);
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             DateTimeData data = JsonUtility.FromJson<DateTimeData>(json);
 
-            switch (dataType)
+            return dataType switch
             {
-                case DateDataType.TargetDate:
-                    targetDataText = data.targetDateText;
-                    break;
-                case DateDataType.InitialDate: 
-                    targetDataText = data.initialDateText;
-                    break;
-                case DateDataType.Description:
-                    targetDataText = data.description;
-                    break;
-                default:
-                    targetDataText = "";
-                    break;
-            }
-
-            Debug.Log($"{GetType()} Log. Loaded data: {targetDataText}");
-            return targetDataText;
+                DateDataType.TargetDate => data.targetDateText,
+                DateDataType.InitialDate => data.initialDateText,
+                DateDataType.Description => data.description,
+                _ => ""
+            };
         }
         else
         {
-            Debug.LogWarning($"{GetType()} LogWarning. The file {fileName} doesn't exist");
+            Debug.LogWarning($"{GetType()} LogWarning. The file {FileName} doesn't exist");
             return null;
         }
     }

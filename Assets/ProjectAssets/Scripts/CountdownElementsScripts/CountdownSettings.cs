@@ -56,11 +56,7 @@ public class CountdownSettings : CountdownElement
 
     private void ValidateSettings()
     {
-        if (!ValidateDate())
-        {
-            return;
-        }
-        if (!ValidateDescription())
+        if (!ValidateDate() || !ValidateDescription())
         {
             return;
         }
@@ -71,7 +67,6 @@ public class CountdownSettings : CountdownElement
             recalculateInitialDate = true;
 
         dateInfo.SetDescription(descriptionIF.text);
-        dateInfo.SetTargetDateString();
 
         jsonFileReader.SaveInfoToFile(dateInfo);
         
@@ -144,7 +139,8 @@ public class CountdownSettings : CountdownElement
         if (!DateTime.TryParse(date, out DateTime resultDate))
         {
             StartCoroutine(ShowTextAlert(timeAlertText));
-            throw new Exception("The date does not have the correct format");
+            Debug.LogWarning($"{GetType()} Warning. The date does not have the correct format");
+            return "";
         }
 
         string hour = "";
@@ -156,7 +152,8 @@ public class CountdownSettings : CountdownElement
         if (!DateTime.TryParse(hour, out DateTime resultTime))
         {
             StartCoroutine(ShowTextAlert(timeAlertText));
-            throw new Exception("The time does not have the correct format");
+            Debug.LogWarning($"{GetType()} Warning. The time does not have the correct format");
+            return "";
         }
         
         string[] dateTime = { date, hour };
