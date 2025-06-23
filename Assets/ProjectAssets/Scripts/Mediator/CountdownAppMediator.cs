@@ -6,15 +6,15 @@ public class CountdownAppMediator : MonoBehaviour
     [SerializeField] internal DateTimeInfoSO dateInfo;
     [SerializeField] internal DateTimeInfoSO defaultDateInfo;
 
-    [SerializeField] private List<CountdownElement> appMainElementsList;
-    private Dictionary<ElementId, CountdownElement> countdownElementsDictionary;
-    private CountdownSettings settings;
-    private CountdownTimer timer;
+    [SerializeField] private List<AppScreenElement> appMainElementsList;
+    private Dictionary<ElementId, AppScreenElement> countdownElementsDictionary;
+    private AppSettingsScreen settings;
+    private AppTimerScreen timer;
     private string countdownKey = "CountDownSet";
 
     private void Start()
     {
-        countdownElementsDictionary = new Dictionary<ElementId, CountdownElement>();
+        countdownElementsDictionary = new Dictionary<ElementId, AppScreenElement>();
 
         InitDateTimeObjects();
         PrepareAppElements();
@@ -39,8 +39,8 @@ public class CountdownAppMediator : MonoBehaviour
                 InitElement(element);
                 Debug.Log($"{GetType()} Log. Add dictionary registry: {element.elementId}, {element}");
             }
-            settings = countdownElementsDictionary[ElementId.SettingsScreen] as CountdownSettings;
-            timer = countdownElementsDictionary[ElementId.AppScreen] as CountdownTimer;
+            settings = countdownElementsDictionary[ElementId.SettingsScreen] as AppSettingsScreen;
+            timer = countdownElementsDictionary[ElementId.AppScreen] as AppTimerScreen;
             CheckIfAppHasSavedCountdown();
         }
         else
@@ -49,7 +49,7 @@ public class CountdownAppMediator : MonoBehaviour
         }
     }
 
-    void RegisterElement(CountdownElement element)
+    void RegisterElement(AppScreenElement element)
     {
         if (!countdownElementsDictionary.ContainsKey(element.elementId))
         {
@@ -61,7 +61,7 @@ public class CountdownAppMediator : MonoBehaviour
             Debug.LogWarning($"Duplicate element ID: {element.elementId}");
         }
     }
-    void InitElement(CountdownElement element)
+    void InitElement(AppScreenElement element)
     {
         element.InitElementComponents(this, dateInfo, defaultDateInfo);
     }

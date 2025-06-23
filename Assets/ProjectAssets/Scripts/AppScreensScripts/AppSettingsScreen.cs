@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System;
 using DG.Tweening;
 
-public class CountdownSettings : CountdownElement
+public class AppSettingsScreen : AppScreenElement
 {
     [Header("Dropdown elements")]
     [SerializeField] List<TMP_Dropdown> targetDropDownList;

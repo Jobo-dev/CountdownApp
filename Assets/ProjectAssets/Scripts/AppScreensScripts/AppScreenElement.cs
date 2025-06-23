@@ -9,7 +9,7 @@ public enum ElementId
 }
 
 [RequireComponent(typeof(CanvasGroup))]
-public abstract class CountdownElement : MonoBehaviour
+public abstract class AppScreenElement : MonoBehaviour
 {
     protected CanvasGroup elementCanvasGroup;
     protected CountdownAppMediator appMediator;

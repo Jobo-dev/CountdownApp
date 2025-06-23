@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountdownTimer : CountdownElement
+public class AppTimerScreen : AppScreenElement
 {
     [Header("Generate new countdown button")]
     [SerializeField] internal Button generateCountdownButton;
