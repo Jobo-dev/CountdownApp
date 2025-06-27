@@ -23,7 +23,7 @@ public class CountdownComponent : MonoBehaviour
     #region Monobehaviour callbacks
     private void Start()
     {
-        SetDates(DateTime.Now, DateTime.Now);
+
     }
     #endregion
 
@@ -52,6 +52,8 @@ public class CountdownComponent : MonoBehaviour
     void UpdateCountdown()
     {
         TimeSpan remaining = targetTime - DateTime.Now;
+
+        Debug.Log($"{targetTime} - {DateTime.Now} = {remaining}");
 
         if (remaining.TotalSeconds <= 0)
         {

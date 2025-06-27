@@ -56,6 +56,8 @@ public class AppTimerScreen : AppScreenElement
         DateTime initialTime = DateTime.Parse(jsonFileReader.LoadDataFromJson(DateDataType.InitialDate));
         descriptionText.text = jsonFileReader.LoadDataFromJson(DateDataType.Description);
 
+        Debug.Log($"{targetTime.ToString()} \n {initialTime.ToString()}");
+
         countdown.InitCountdownProcess(targetTime, initialTime);
 
         CheckSavedInitialDateTime();
