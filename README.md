@@ -1,28 +1,44 @@
 # ⏳ CountdownApp – Unity
 
-Una aplicación de cuenta regresiva desarrollada en Unity, diseñada como parte de un portafolio personal y que se mantiene en desarrollo constante. Actualmente permite personalizar el tiempo y la descripcion.
-Se encuentra en desarrollo el cambio de apariencia visual y alertas sonoras.
+A countdown timer application built with Unity as a personal project. It allows users to create custom countdowns by selecting a target date, time, and a descriptive message.
 
-> ⚠️ **Nota:** Este proyecto es de uso exclusivo para fines demostrativos dentro de un portafolio personal. No se permite su uso, reproducción ni distribución sin el consentimiento del autor.
+The project is designed with a modular architecture and is adaptable to multiple platforms, including WebGL and mobile devices. Data is stored persistently in the browser or device, even after the app is closed.
 
+## ✨ Features
 
-## ✨ Características
+- 🕒 Custom target date, time, and description setup
+- 📲 Cross-platform support: WebGL and mobile devices
+- 💾 Data persistence using JSON and `PlayerPrefs`
+- 🧩 Modular architecture using a *Mediator*-style controller
+- 🧠 Uses `ScriptableObject` for data management and validation
+- 🎮 Smooth UI animations with DOTween
+- 🎛 Dynamic dropdown UI for time selection
+- 🔁 Ability to reset the countdown at any time
 
-- 🎛 Personalización del tiempo de cuenta regresiva.
-- 🎨 Temas de color y tipografías seleccionables.
-- 🔔 Alertas visuales y sonoras al finalizar.
-- 📱 Interfaz adaptable a diferentes resoluciones (PC y Android).
-- 🧩 Código modular y fácil de expandir.
+## 🚀 Try it online
 
-## 🛠 Requisitos
+You can run the app directly in your browser via WebGL:
 
-- Unity 6000.0.36f1 o superior.
-- Sistema operativo: Windows, macOS o distribución Linux compatible.
-- Android Build Support instalado en Unity Hub.
+🔗 [https://jobodev.itch.io/custom-countdown-app](https://jobodev.itch.io/custom-countdown-app)
 
-## ✉️ Contacto
-Si quieres saber más sobre el proyecto, colaborar o tienes preguntas, puedes encontrarme en:
+## 🛠 Requirements
 
-GitHub: Jobo-dev
-Correo: jorgecj.dev@gmail.com
-© 2025 Jobo-dev. Todos los derechos reservados.
+- Unity 2022.3.x or later (recommended: `2022.3.36f1`)
+- Operating System: Windows, macOS, or a compatible Linux distribution
+- Android Build Support (for mobile deployment)
+- DOTween installed (via Package Manager or Asset Store)
+
+## 📁 Repository
+
+🔗 [https://github.com/Jobo-dev/CountdownApp](https://github.com/Jobo-dev/CountdownApp)
+
+## ✉️ Contact
+
+If you want to learn more about the project, provide feedback, or connect:
+
+- GitHub: [Jobo-dev](https://github.com/Jobo-dev)
+- Email: jorgecj.dev@gmail.com
+
+> 🔒 **Disclaimer:** This project was created for educational and portfolio purposes. Feel free to explore the code. For any reuse or distribution, please contact the author.
+
+© 2025 Jobo-dev. All rights reserved.
